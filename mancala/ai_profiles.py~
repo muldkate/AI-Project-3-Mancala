@@ -10,6 +10,9 @@ except Exception: #ImportError
     from mancala import Player, reverse_index
     from constants import AI_NAME, P1_PITS, P2_PITS
 
+#from .mancala import Player, reverse_index
+#from .constants import AI_NAME, P1_PITS, P2_PITS
+
 class AIPlayer(Player):
     """ Base class for an AI Player """
     def __init__(self, number, board, name=AI_NAME):

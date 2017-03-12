@@ -8,7 +8,8 @@ except Exception: #ImportError
     from board import Board, InvalidMove
 
 import sys
-
+#from .constants import DEFAULT_NAME, P1_PITS, P2_PITS, P1_STORE, P2_STORE
+#from .board import Board, InvalidMove
 
 class Player(object):
     """ A player of Mancala. """

@@ -1,5 +1,8 @@
 """ Main script to begin playing a match of Mancala. """
 
+#if __name__ == '__main__' and __package__ is None:
+#    from os import sys, path
+#    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 try:
     from .mancala import Match
@@ -10,6 +13,9 @@ except Exception: #ImportError
     from mancala import HumanPlayer
     from ai_profiles import VectorAI
 
+#from .mancala import Match
+#from .mancala import HumanPlayer
+#from .ai_profiles import VectorAI
 
 def main():
     """ Script to begin a match of Mancala. """

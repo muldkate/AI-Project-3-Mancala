@@ -6,6 +6,8 @@ except Exception: #ImportError
     from constants import P1_PITS, P1_STORE, P2_PITS, P2_STORE
 
 
+#from .constants import P1_PITS, P1_STORE, P2_PITS, P2_STORE
+
 class InvalidBoardArea(Exception):
     """ Exception flagged when moves are attempted on an unknown area. """
     pass
