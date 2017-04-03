@@ -6,8 +6,6 @@ except Exception: #ImportError
     from constants import P1_PITS, P1_STORE, P2_PITS, P2_STORE
 
 
-#from .constants import P1_PITS, P1_STORE, P2_PITS, P2_STORE
-
 class InvalidBoardArea(Exception):
     """ Exception flagged when moves are attempted on an unknown area. """
     pass
@@ -31,12 +29,12 @@ class Board(object):
         Note that the order of player 2 pits are displayed in reverse
         from the list index to give the appearance of a loop.
         """
-        return "   %d  %d  %d  %d  %d  %d\n %d                    %d\n   %d  %d  %d  %d  %d  %d\n" % (
+        return "%d  %d  %d  %d  %d  %d  %d  %d  %d  %d  %d  %d" % (
                        # Player 2 pits in top row
                        self.board[2][5], self.board[2][4], self.board[2][3],
                        self.board[2][2], self.board[2][1], self.board[2][0],
                        # Player 2 & 1 stores in middle row
-                       self.board[3][0], self.board[1][0],
+#                       self.board[3][0], self.board[1][0],
                        # Player 1 pits on bottom row
                        self.board[0][0], self.board[0][1], self.board[0][2],
                        self.board[0][3], self.board[0][4], self.board[0][5])
@@ -101,10 +99,10 @@ class Board(object):
     def _earned_free_move(self, player_num, last_area):
         """ Checks whether a free move was earned. """
         if player_num == 1 and last_area == P1_STORE:
-            print ("Earned free move!")
+            #print ("Earned free move!")
             return True
         elif player_num == 2 and last_area == P2_STORE:
-            print ("Earned free move!")
+            #print ("Earned free move!")
             return True
         else:
             return False
@@ -153,7 +151,7 @@ class Board(object):
             last_area, last_index)
 
         captured_stones = self.board[opposing_area][opposing_index]
-        print ("%d stones captured!" % captured_stones)
+        #print ("%d stones captured!" % captured_stones)
 
         # Clear the two pits
         self.board[last_area][last_index] = 0

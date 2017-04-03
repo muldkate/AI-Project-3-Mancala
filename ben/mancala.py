@@ -8,8 +8,7 @@ except Exception: #ImportError
     from board import Board, InvalidMove
 
 import sys
-#from .constants import DEFAULT_NAME, P1_PITS, P2_PITS, P1_STORE, P2_STORE
-#from .board import Board, InvalidMove
+
 
 class Player(object):
     """ A player of Mancala. """
@@ -43,9 +42,11 @@ class Match(object):
 
     def handle_next_move(self):
         """ Shows board and handles next move. """
-        print (self.board.textify_board())
-
         next_move = self.current_turn.get_next_move()
+        if self.current_turn == self.player1:
+            #print("Current turn: player1")
+            print (self.board.textify_board())
+            print(next_move)
         try:
             self.board.board, free_move_earned = self.board._move_stones(self.current_turn.number, next_move)
         except InvalidMove:
@@ -62,6 +63,8 @@ class Match(object):
 
         # Check whether free move was earned
         if free_move_earned:
+            #if self.current_turn == self.player1:
+                #print(self.board.textify_board())
             self.handle_next_move()
         else:
             self._swap_current_turn()
@@ -81,11 +84,11 @@ class Match(object):
         """ Checks for winner. Announces the win."""
         if set(self.board.board[P1_PITS]) == set([0]):
             self.board.board = self.board.gather_remaining(self.player2.number)
-            print ("Player 1 finished! %s: %d to %s: %d" % (self.player1.name, self.board.board[P1_STORE][0], self.player2.name, self.board.board[P2_STORE][0]))
+            #print ("Player 1 finished! %s: %d to %s: %d" % (self.player1.name, self.board.board[P1_STORE][0], self.player2.name, self.board.board[P2_STORE][0]))
             return True
         elif set(self.board.board[P2_PITS]) == set([0]):
             self.board.board = self.board.gather_remaining(self.player1.number)
-            print ("Player 2 finished! %s: %d to %s: %d" % (self.player1.name, self.board.board[P1_STORE][0], self.player2.name, self.board.board[P2_STORE][0]))
+            #print ("Player 2 finished! %s: %d to %s: %d" % (self.player1.name, self.board.board[P1_STORE][0], self.player2.name, self.board.board[P2_STORE][0]))
             return True
         else:
             return False

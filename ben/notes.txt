@@ -1,0 +1,3 @@
+output needs to be
+array of current board
+one player's move, not both. Can only train on one bot at a time

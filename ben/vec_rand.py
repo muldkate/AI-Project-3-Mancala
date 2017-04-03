@@ -1,26 +1,22 @@
 """ Main script to begin playing a match of Mancala. """
 
-#if __name__ == '__main__' and __package__ is None:
-#    from os import sys, path
-#    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 try:
     from .mancala import Match
     from .mancala import HumanPlayer
     from .ai_profiles import VectorAI
+    from .ai_profiles import RandomAI
 except Exception: #ImportError
     from mancala import Match
     from mancala import HumanPlayer
     from ai_profiles import VectorAI
+    from ai_profiles import RandomAI
 
-#from .mancala import Match
-#from .mancala import HumanPlayer
-#from .ai_profiles import VectorAI
 
 def main():
     """ Script to begin a match of Mancala. """
-    print("Welcome to Mancala!")
-    match = Match(player1_type=HumanPlayer, player2_type=VectorAI)
+    #print("Welcome to Mancala!")
+    match = Match(player1_type=VectorAI, player2_type=RandomAI)
     match.handle_next_move()
 
 if __name__ == '__main__':

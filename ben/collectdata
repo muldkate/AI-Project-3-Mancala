@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo "erasing previous data"
+rm games_data.txt games_targets.txt results.txt
+count=10
+while [ $count -gt 0 ]
+do
+	python3 vec_vec.py >> results.txt
+	python3 vec_rand.py >> results.txt
+	count=$[$count-1]
+	echo $count
+done
+echo complete
+echo seperating target data
+grep '^.$' results.txt >> games_targets.txt
+sed '/^[0-9]$/d' results.txt > games_data.txt
+one="$(cat games_data.txt | wc -l)"
+two="$(cat games_targets.txt | wc -l)"
+if [ $one -eq $two ]
+then
+	echo "file sizes are equal: $one"
+else
+	echo "file sizes differ"
+fi
+
+#run ML python file
