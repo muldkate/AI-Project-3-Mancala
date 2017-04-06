@@ -17,7 +17,8 @@ class InvalidMove(Exception):
 class Board(object):
     """ A Mancala board with size pockets per player and stones """
 
-    def __init__(self, pits=6, stones=4, test_state=None):
+    def __init__(self, pits=6, stones=4, test_state=None, param_print_game_status=True):
+        self.print_game_status = param_print_game_status
         if test_state:
             self.board = test_state
         else:
@@ -29,7 +30,7 @@ class Board(object):
         Note that the order of player 2 pits are displayed in reverse
         from the list index to give the appearance of a loop.
         """
-        return "   %d  %d  %d  %d  %d  %d\n %d                    %d\n   %d  %d  %d  %d  %d  %d\n" % (
+        return "     6   5   4   3   2   1\n     ---------------------\n    %2d  %2d  %2d  %2d  %2d  %2d\n %2d                        %2d\n    %2d  %2d  %2d  %2d  %2d  %2d\n     ---------------------\n     1   2   3   4   5   6" % (
                        # Player 2 pits in top row
                        self.board[2][5], self.board[2][4], self.board[2][3],
                        self.board[2][2], self.board[2][1], self.board[2][0],
@@ -99,10 +100,12 @@ class Board(object):
     def _earned_free_move(self, player_num, last_area):
         """ Checks whether a free move was earned. """
         if player_num == 1 and last_area == P1_STORE:
-            print ("Earned free move!")
+            if self.print_game_status:
+                print ("Earned free move!")
             return True
         elif player_num == 2 and last_area == P2_STORE:
-            print ("Earned free move!")
+            if self.print_game_status:
+                print ("Earned free move!")
             return True
         else:
             return False
@@ -151,7 +154,8 @@ class Board(object):
             last_area, last_index)
 
         captured_stones = self.board[opposing_area][opposing_index]
-        print ("%d stones captured!" % captured_stones)
+        if self.print_game_status:
+            print ("%d stones captured!" % captured_stones)
 
         # Clear the two pits
         self.board[last_area][last_index] = 0

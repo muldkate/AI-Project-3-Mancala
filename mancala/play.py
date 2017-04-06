@@ -5,17 +5,22 @@ try:
     from .mancala import Match
     from .mancala import HumanPlayer
     from .ai_profiles import VectorAI
+    from .ai_profiles import RandomAI
+    from ai_profiles import LeftmostAI
 except Exception: #ImportError
     from mancala import Match
     from mancala import HumanPlayer
     from ai_profiles import VectorAI
+    from ai_profiles import RandomAI
+    from ai_profiles import LeftmostAI
 
 
 def main():
     """ Script to begin a match of Mancala. """
-    print("Welcome to Mancala!")
-    match = Match(player1_type=HumanPlayer, player2_type=VectorAI)
+    print ("Welcome to Mancala!")
+    match = Match(player1_type=HumanPlayer, player2_type=LeftmostAI, param_print_game_status=True)
     match.handle_next_move()
+   
 
 if __name__ == '__main__':
     main()
