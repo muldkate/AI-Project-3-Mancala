@@ -24,4 +24,6 @@ else
 fi
 
 #run ML python file to create file
+python3 createmodel.py
+
 #run game with ML bot
