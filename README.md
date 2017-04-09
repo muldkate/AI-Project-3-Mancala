@@ -1,7 +1,8 @@
-Python implementation of the classical African board game, Mancala.
+CIS 365 Project 3: Mancala Bots
 
-Good starting point for developing deeper artificial intelligence profiles.
+Team Asimov's Laws
+Katie Mulder, Ben Lafeldt, Mattie Phillips
 
-Currently supports two basic AI profiles:
-- one vector-based that optimizes for free turns & captures
-- one simple random AI
+The base code of Mancala for this project comes from : https://github.com/anuzis/mancala.
+
+This project contains the code for data gathering, a ML bot and a GA bot.
