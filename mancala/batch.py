@@ -22,15 +22,15 @@ def main():
     num_matches = 1000
     matchlist = [
         [ RandomAI, RandomAI ],
-        [ VectorAI, RandomAI ],
-        [ VectorAI, VectorAI ],
-        [ LeftmostAI, RandomAI ],
-        [ LeftmostAI, VectorAI ],
-        [ LeftmostAI, LeftmostAI ],
-		[ RightmostAI, RandomAI ],
-        [ RightmostAI, VectorAI ],
-        [ RightmostAI, LeftmostAI ],
-        [ RightmostAI, RightmostAI ]
+        #[ VectorAI, RandomAI ],
+        #[ VectorAI, VectorAI ],
+        #[ LeftmostAI, RandomAI ],
+        #[ LeftmostAI, VectorAI ],
+        #[ LeftmostAI, LeftmostAI ],
+		#[ RightmostAI, RandomAI ],
+        #[ RightmostAI, VectorAI ],
+        #[ RightmostAI, LeftmostAI ],
+        #[ RightmostAI, RightmostAI ]
     ]
 
     x=0
