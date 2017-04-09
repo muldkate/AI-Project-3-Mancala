@@ -2,6 +2,8 @@
 
 from random import choice
 import time
+from sklearn import svm
+from sklearn.externals import joblib
 
 try:
     from .mancala import Player, reverse_index
@@ -23,6 +25,14 @@ class AIPlayer(Player):
             return self.board.board[P1_PITS]
         else:
             return self.board.board[P2_PITS]
+
+    @property
+    def allpits(self):
+        """ Shortcut to all pits. """
+        if self.number == 1:
+            return self.board.board[P1_PITS] + self.board.board[P2_PITS]
+        else:
+            return self.board.board[P2_PITS] + self.board.board[P1_PITS]
 
     @property
     def eligible_moves(self):
@@ -64,6 +74,15 @@ class RandomAI(AIPlayer):
         #self._think()
 
         return choice(self.eligible_moves)
+
+class MLAI(AIPlayer):
+    """ Machine Learning bot """
+    clf = joblib.load('model.pkl')
+    def get_next_move(self):
+        move = clf.predict(self.allpits)[0]
+        print(move)
+        return move
+    
 
 class VectorAI(AIPlayer):
     """ AI Profile using a simple vector decision method. """
