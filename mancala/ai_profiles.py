@@ -1,6 +1,8 @@
 """ Module for Mancala AI Profiles. """
 
 from random import choice
+from sklearn.externals import joblib
+from sklearn import svm
 import time
 
 try:
@@ -24,6 +26,13 @@ class AIPlayer(Player):
             return self.board.board[P1_PITS]
         else:
             return self.board.board[P2_PITS]
+    @property
+    def allpits(self):
+        """ Returns all board pits """
+        if self.number == 1:
+            return self.board.board[P1_PITS] + self.board.board[P2_PITS]
+        else:
+            return self.board.board[P2_PITS] + self.board.board[P1_PITS]
 
     @property
     def eligible_moves(self):
@@ -95,6 +104,7 @@ class LeftmostAI(AIPlayer):
     def get_next_move(self):
         """ Use an reverse indices vector to optimize for free turns. """
         move = min(self.eligible_moves)
+        print(self.allpits)
         if self.print_game_status:
             print ("AI chose " + str(move))
         return move
@@ -108,3 +118,19 @@ class RightmostAI(AIPlayer):
             print ("AI chose " + str(move))
         return move
 
+class MLAI(AIPlayer):
+    """ Machine Learning bot """
+    def get_next_move(self):
+        clf = joblib.load('model.pkl')
+        move = clf.predict(self.allpits)
+        print("Move is " + str(move[0]))
+        if self.print_game_status:
+            if int(move[0]) in self.eligible_moves:
+                print("AI going with model")
+                print("AI chose: " + str(move[0] + 1))
+                return int(move[0])
+            else:
+                print("AI going with rand")
+                move = choice(self.eligible_moves)
+                print("AI chose: " + str(move))
+                return move
