@@ -44,26 +44,27 @@ toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)
         
 def main():
     # Run 'breeding'
-    pop = toolbox.population(n=5)
-    hof = tools.HallOfFame(3)
+    pop = toolbox.population(n=300)
+    hof = tools.HallOfFame(1)
+    orig_stdout = sys.stdout
+    f = open('ga_history.txt', 'w')
+    sys.stdout = f
     stats = tools.Statistics(lambda ind: ind.fitness.values)
     stats.register("avg", numpy.mean)
     stats.register("std", numpy.std)
     stats.register("min", numpy.min)
     stats.register("max", numpy.max)
     algorithms.eaSimple(pop, toolbox, 0.5, 0.2, 40, stats, halloffame=hof)
-    print("done")
 
-    orig_stdout = sys.stdout
-    sys.stdout = open('ga_history.txt', 'a')
+
     # print 'Eligible moves: ', self.eligible_moves()
-    print('Pits: ', self.pits)
-    print('Board: ', self.board.textify_board())
-    print('GA: ', tools.selBest(pop, 1))
-    sys.close()
+    #print('Pits: ', self.pits)
+    #print('Board: ', self.board.textify_board())
+    # print(pop, hof, stats)
+    f.close()
     sys.stdout = orig_stdout
-
-    print(pop, hof, stats)
+    print("done")
+    # print(pop, hof, stats)
     return pop, hof, stats
 
 if __name__ == '__main__':
