@@ -15998,3 +15998,4 @@
 9,RightmostAI,RightmostAI,1,0,24,20
 9,RightmostAI,RightmostAI,1,0,24,20
 9,RightmostAI,RightmostAI,1,0,24,20
+0,RandomAI,LeftmostAI,1,2,39,34

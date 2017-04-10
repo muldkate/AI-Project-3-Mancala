@@ -12,7 +12,7 @@ except Exception: #ImportError
 
 class AIPlayer(Player):
     """ Base class for an AI Player """
-    def __init__(self, number, board, name=AI_NAME, param_print_game_status=True):
+    def __init__(self, number, board, match, name=AI_NAME, param_print_game_status=True):
         """ Initializes an AI profile. """
         self.print_game_status = param_print_game_status
         super(AIPlayer, self).__init__(number, board, name)
@@ -107,4 +107,3 @@ class RightmostAI(AIPlayer):
         if self.print_game_status:
             print ("AI chose " + str(move))
         return move
-

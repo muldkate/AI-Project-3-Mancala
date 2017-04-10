@@ -24,22 +24,37 @@ class Player(object):
     def get_name(self):
         """ Returns player name. """
         return self.name
+    
 
 class Match(object):
+    num_turns = 0
+    winner_num_pieces = -999
+    finished_first = -999
+    winner = -999
+
     """ A match of Mancala has two Players and a Board.
 
     Match tracks current turn.
 
     """
 
-    def __init__(self, player1_type=Player, player2_type=Player, param_print_game_status=True, filename="default.txt", param_matchgroup=0):
+    def __init__(self, player1_type=Player, player2_type=Player, param_print_game_status=True, filename="default.txt", param_matchgroup=0, training=None):
         """ Initializes a new match. """
         self.board = Board(param_print_game_status=param_print_game_status)
-        self.players = [player1_type(1, self.board, player1_type.__name__, param_print_game_status=param_print_game_status), player2_type(2, self.board, player2_type.__name__, param_print_game_status=param_print_game_status)]
+        if training:
+            self.players = [player1_type(1, self.board, self, player1_type.__name__, param_print_game_status=param_print_game_status), training]
+            training.number = 2
+            training.board = self.board
+            training.match = self
+        else:
+            self.players = [player1_type(1, self.board, self, player1_type.__name__, param_print_game_status=param_print_game_status), player2_type(2, self.board, self, player2_type.__name__, param_print_game_status=param_print_game_status)]
         self.player1 = self.players[0]
         self.player1_name = player1_type.__name__
         self.player2 = self.players[1]
-        self.player2_name = player2_type.__name__
+        if training:
+            self.player2_name = player2_type.__name__
+        else:
+            self.player2_name = "GA_Iteration"
         self.current_turn = self.player1
         self.print_game_status = param_print_game_status
         # Variables for gathering statistics

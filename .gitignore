@@ -1,0 +1,5 @@
+mancala/__pycache__/*
+.vscode
+mancala/.ipynb_checkpoints/
+mattie/.ipynb_checkpoints/
+mancala/default.txt

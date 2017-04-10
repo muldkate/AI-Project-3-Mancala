@@ -1,86 +1,71 @@
 """ Genetic Algorithm bot """
 
-from deap import algorithms, base, creator, tools, gp
-from mancala import Player, reverse_index, Match
-from constants import P1_PITS, P2_PITS
-from ai_profiles import AIPlayer, RandomAI, GeneticAlgorithmAI
 import sys
+from functools import partial
 
-# class Train():
-#     def __init__(self):
-#         self.topic = 0
-#         self.isProcessing = false
-    
+from deap import algorithms, base, creator, gp, tools
 
-    
-#     def run(self, routine):
-#         self._reset()
-#         while self.isProcessing:
-#             routine()
+import primitives
+from ai_profiles import AIPlayer, RandomAI
+from constants import P1_PITS, P2_PITS
+from mancala import Match, Player, reverse_index
+
+
+def if_then_else(condition, out1, out2):    
+    out1() if condition() else out2()
 
 class GeneticAlgorithmAI(AIPlayer):
+    won = False
+    moves = -999
+    finished_first = -999
+    winner_num_pieces = -999
+
+    """ Base class for an AI Player """
+   # def __init__(self, number, board, match):
+    #    super(AIPlayer, self).__init__(number, board)
     
-    def get_next_move(self):  
-        # Initialize GA      
-        pset = gp.PrimitiveSet("MAIN", 0)
-        
-        creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-        creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMax)
+    def __reset(self):
+        self.number = 1 # change to be random number
+        self.board = None
 
-        toolbox = base.Toolbox()
-        # Attribute generator
-        toolbox.register("expr_init", gp.genFull, pset=pset, min_=1, max_=2)
-        # Structure initializers
-        toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr_init)
-        toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+    def empty_rightmost(self):
+        return max(self.eligible_moves)
 
-        toolbox.register("evaluate", evaluate_move)
-        toolbox.register("select", tools.selTournament, tournsize=7)
-        toolbox.register("mate", gp.cxOnePoint)
-        toolbox.register("expr_mut", gp.genFull, min_=0, max_=2)
-        toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)
-        
-        # Run 'breeding'
-        pop = toolbox.population(n=300)
-        hof = tools.HallOfFame(3)
-        stats = tools.Statistics(lambda ind: ind.fitness.values)
-        stats.register("avg", numpy.mean)
-        stats.register("std", numpy.std)
-        stats.register("min", numpy.min)
-        stats.register("max", numpy.max)
-        
-        algorithms.eaSimple(pop, toolbox, 0.5, 0.2, 40, stats, halloffame=hof)
-        
-        orig_stdout = sys.stdout
-        sys.stdout = open('./genetic_algorithm/out.txt', 'a')
-        #print 'Eligible moves: ', self.eligible_moves()
-        print('Pits: ', self.pits)
-        print('Board: ', self.board.textify_board())
-        print('GA: ', tools.selBest(pop, 1))
-        sys.close()     
-        sys.stdout = orig_stdout
+    def make_strategy_decisions(self):
+        # strategy: starting game best move
+        if self.match.num_turns == 0:
+            return self.pits[2]
+        # strategy: prevent other playing from making same move
+        if self.match.num_turns == 1:
+            return self.pits[5]
 
-        return pop, hof, stats
-
-        def evaluate_move(move):
-            possible_move = gp.compile(move, pset)
-            # Run a simulation with same GA and board
-            match = Match(player1_type=RandomAI, player2_type=self, param_print_game_status=False, param_matchgroup=x)
-            match.board = self.board
-            match.handle_next_move()
-            # Consider this move a success if we are winner, maximizes number of pieces
-            if match.winner == 2:
-                return match.winner_num_pieces
-            return 0
-
-        # move = choice(self.eligible_moves)
-        # if self.print_game_status:
-        #     print("AI chose " + str(move))
-        # return move
-
-    def take_free_turns(self):
-        free_moves = eligible_free_turns()
-        if len(eligible_moves) > 0:
-            return free_moves
-        return 0
+    def free_turn_available(self):
+        free_moves = self.eligible_free_turns()
+        if len(free_moves) > 0:
+            return True
+        return False
     
+    def random(self):
+        return choice(self.eligible_moves)
+
+    routine = None
+
+    def if_free_turn(self, out1, out2):
+        return partial(primitives.if_then_else, self.free_turn_available, out1, out2)
+
+    def get_next_move(self):
+        self.routine
+    
+    def update(self, number, board, match):
+        self.number = number
+        self.board = board
+        self.match = match
+
+    def run(self, routine):
+        self.__reset()      
+        self.routine = routine
+        self.match = Match(player1_type=RandomAI, player2_type=GeneticAlgorithmAI, param_print_game_status=False, param_matchgroup=2, training=self)
+        self.match.handle_next_move()
+        self.won = self.match.winner == self.number
+        self.finished_first = self.match.finished_first
+        self.winner_num_pieces = self.match.winner_num_pieces
