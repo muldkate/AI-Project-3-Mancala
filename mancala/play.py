@@ -6,16 +6,15 @@ try:
     from .mancala import HumanPlayer
     from .ai_profiles import VectorAI
     from .ai_profiles import RandomAI
-    from ai_profiles import LeftmostAI
-#    from .ga_bot import GeneticAlgorithmAI
+    from .ai_profiles import LeftmostAI
+    from .ai_profiles import MLAI
 except Exception: #ImportError
     from mancala import Match
     from mancala import HumanPlayer
     from ai_profiles import VectorAI
     from ai_profiles import RandomAI
     from ai_profiles import LeftmostAI
-#    from ga_bot import GeneticAlgorithmAI
-
+    from ai_profiles import MLAI
 
 def main(player1=None, player2=None):
     """ Script to begin a match of Mancala. """
@@ -28,6 +27,7 @@ def main(player1=None, player2=None):
         player2 = LeftmostAI
 
     match = Match(player1_type=player1, player2_type=player2, param_print_game_status=True)
+
     match.handle_next_move()
    
 
