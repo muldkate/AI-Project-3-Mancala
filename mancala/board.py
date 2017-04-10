@@ -53,7 +53,8 @@ class Board(object):
             current_area = P1_PITS
         else:
             current_area = P2_PITS
-
+        
+        # print(start_index)
         # Confirm stones are available at the given index.
         if not self.board[current_area][start_index]:
             raise InvalidMove

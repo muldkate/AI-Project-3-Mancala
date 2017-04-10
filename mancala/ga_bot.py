@@ -29,32 +29,37 @@ class GeneticAlgorithmAI(AIPlayer):
         self.board = None
 
     def empty_rightmost(self):
+        print(max(self.eligible_moves))
         return max(self.eligible_moves)
 
     def make_strategy_decisions(self):
         # strategy: starting game best move
         if self.match.num_turns == 0:
+            print(self.pits[2])
             return self.pits[2]
         # strategy: prevent other playing from making same move
         if self.match.num_turns == 1:
+            print(self.pits[5])
             return self.pits[5]
 
     def free_turn_available(self):
-        free_moves = self.eligible_free_turns()
+        free_moves = self.eligible_free_turns
         if len(free_moves) > 0:
             return True
         return False
     
     def random(self):
-        return choice(self.eligible_moves)
+        x = choice(self.eligible_moves)
+        print(x)
+        return x
 
-    routine = None
+    routine = random
 
     def if_free_turn(self, out1, out2):
         return partial(primitives.if_then_else, self.free_turn_available, out1, out2)
 
     def get_next_move(self):
-        return self.routine
+        return self.routine()
     
     def update(self, number, board, match):
         self.number = number
@@ -64,7 +69,7 @@ class GeneticAlgorithmAI(AIPlayer):
     def run(self, routine):
         self.__reset()      
         self.routine = routine
-        self.match = Match(player1_type=RandomAI, player2_type=GeneticAlgorithmAI, param_print_game_status=False, param_matchgroup=2, training=self)
+        self.match = Match(player1_type=RandomAI, player2_type=GeneticAlgorithmAI, param_matchgroup=2, training=self)
         self.match.handle_next_move()
         self.won = self.match.winner == self.number
         self.finished_first = self.match.finished_first

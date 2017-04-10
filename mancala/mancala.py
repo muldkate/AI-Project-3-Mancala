@@ -42,7 +42,7 @@ class Match(object):
         """ Initializes a new match. """
         self.board = Board(param_print_game_status=param_print_game_status)
         if training:
-            self.players = [player1_type(1, self.board, self, player1_type.__name__, param_print_game_status=param_print_game_status), training]
+            self.players = [player1_type(1, self.board, self, player1_type.__name__), training]
             training.number = 2
             training.board = self.board
             training.match = self
