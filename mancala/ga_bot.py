@@ -54,7 +54,7 @@ class GeneticAlgorithmAI(AIPlayer):
         return partial(primitives.if_then_else, self.free_turn_available, out1, out2)
 
     def get_next_move(self):
-        self.routine
+        return self.routine
     
     def update(self, number, board, match):
         self.number = number
