@@ -5,10 +5,9 @@ rm games_data.txt games_targets.txt results.txt
 count=$1
 while [ $count -gt 0 ]
 do
-	python3 vec_vec.py >> results.txt
-	python3 vec_rand.py >> results.txt
+	python3 train_vec.py >> results.txt
 	count=$[$count-1]
-	echo $count
+	echo "ITERATION $count"
 done
 echo complete
 echo seperating target data
@@ -22,8 +21,3 @@ then
 else
 	echo "file sizes differ"
 fi
-
-#run ML python file to create file
-python3 createmodel.py
-
-#run game with ML bot

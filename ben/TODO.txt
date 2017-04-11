@@ -1,0 +1,2 @@
+Try different model parameters
+Test ML against other bots

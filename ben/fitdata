@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#run ML python file to create file
+python3 createmodel.py
+
+#run game with ML bot
+cp model.pkl ../mancala/
+
+python3 ../mancala/ML_test.py > ../mancala/ML_test_results.txt
+grep 'finish' ../mancala/ML_test_results.txt > TestResults/ML-10C-$1-results.txt
