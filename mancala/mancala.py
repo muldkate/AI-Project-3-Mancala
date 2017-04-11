@@ -166,7 +166,7 @@ class Match(object):
 class HumanPlayer(Player):
     """ A human player. """
 
-    def __init__(self, number, match, board, name=None, param_print_game_status = True):
+    def __init__(self, match, number=None, board=None, name=DEFAULT_NAME, param_print_game_status=True):
         super(HumanPlayer, self).__init__(number, board)
         if name:
             self.name = name
