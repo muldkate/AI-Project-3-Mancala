@@ -15,15 +15,14 @@ from random import choice
 def if_then_else(condition, out1, out2):    
     out1() if condition() else out2()
 
+def if_then_else_eligible(condition, out1, out2):    
+    out1() if condition() else out2()
+
 class GeneticAlgorithmAI(AIPlayer):
     won = False
     moves = -999
     finished_first = -999
     winner_num_pieces = -999
-
-    """ Base class for an AI Player """
-   # def __init__(self, number, board, match):
-    #    super(AIPlayer, self).__init__(number, board)
     
     def __reset(self):
         self.number = 1 # change to be random number
@@ -33,7 +32,11 @@ class GeneticAlgorithmAI(AIPlayer):
         # print(max(self.eligible_moves))
         return max(self.eligible_moves)
 
-    def make_strategy_decisions(self):
+    def empty_leftmost(self):
+        # print(max(self.eligible_moves))
+        return min(self.eligible_moves)
+
+    def make_strategy_opening_decisions(self):
         # strategy: starting game best move
         if self.match.num_turns == 0:
             # print(self.pits[2])
@@ -42,6 +45,39 @@ class GeneticAlgorithmAI(AIPlayer):
         if self.match.num_turns == 1:
             # print(self.pits[5])
             return 5
+    
+   # def make_strategy_decisions(self):
+
+
+    def first_hole(self):
+        if 0 in self.eligible_moves:
+            return 0
+        return choice(self.eligible_free_turns)
+
+    def second_hole(self):
+        if 1 in self.eligible_moves:
+            return 1
+        return choice(self.eligible_free_turns)
+
+    def third_hole(self):
+        if 2 in self.eligible_moves:
+            return 2
+        return choice(self.eligible_free_turns)
+        
+    def fourth_hole(self):
+        if 3 in self.eligible_moves:
+            return 3
+        return choice(self.eligible_free_turns)
+        
+    def fifth_hole(self):
+        if 4 in self.eligible_moves:
+            return 4
+        return choice(self.eligible_free_turns)
+        
+    def sixth_hole(self):
+        if 5 in self.eligible_moves:
+            return 5
+        return choice(self.eligible_free_turns)
 
     def free_turn_available(self):
         free_moves = self.eligible_free_turns
@@ -53,11 +89,23 @@ class GeneticAlgorithmAI(AIPlayer):
         x = choice(self.eligible_moves)
         # print(x)
         return x
+    
+    def large_pit(self):
+        for pit in self.eligible_moves:
+            if self.pits[pit] > 7:
+                return True
+        return False
 
     routine = random
 
     def if_free_turn(self, out1, out2):
         return partial(primitives.if_then_else, self.free_turn_available, out1, out2)
+    
+    def if_pit_is_large(self, out1, out2):
+        return partial(primitives.if_then_else, self.large_pit, out1, out2 )
+
+    # def if_eligible_move(self, out1, out2):
+       #  return partial(primitives.if_then_else, eligible_move, ) 
 
     def get_next_move(self):
         result = self.routine()

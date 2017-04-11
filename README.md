@@ -19,3 +19,9 @@ __Instructions:__
 - Be sure the appropriate libraries are installed: numpy, scipy, sklearn and python3
 
 - run the command python3 ./mancala/play2.py
+
+*__Genetic Algorithm Training__*
+
+- Install libraries: deap, docopt, numpy, functools, random
+
+- run the command: python3 ./mancala/ga_bot.py

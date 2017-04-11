@@ -15,11 +15,19 @@ import numpy
 
 ai_player = GeneticAlgorithmAI(2, None, None, GeneticAlgorithmAI.__name__)
 
-print("starting")
+print("starting...")
 pset = gp.PrimitiveSet("MAIN", 0)
 pset.addPrimitive(ai_player.if_free_turn, 2)
-pset.addTerminal(ai_player.make_strategy_decisions)
+pset.addPrimitive(ai_player.if_pit_is_large, 2)
+pset.addTerminal(ai_player.make_strategy_opening_decisions)
 pset.addTerminal(ai_player.empty_rightmost)
+pset.addTerminal(ai_player.empty_leftmost)
+pset.addTerminal(ai_player.first_hole)
+pset.addTerminal(ai_player.second_hole)
+pset.addTerminal(ai_player.third_hole)
+pset.addTerminal(ai_player.fourth_hole)
+pset.addTerminal(ai_player.fifth_hole)
+pset.addTerminal(ai_player.sixth_hole)
 pset.addPrimitive(primitives.seq2, 2)
 pset.addPrimitive(primitives.seq3, 3)
 
@@ -34,6 +42,7 @@ toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 def evaluate_move(move):
     possible_move = gp.compile(move, pset)
     ai_player.run(possible_move)
+    num_pieces = ai_player.winner_num_pieces if ai_player.won else 0.0
     return 1.0 if ai_player.won else 0.0, ai_player.num_turns, ai_player.winner_num_pieces
 
 toolbox.register("evaluate", evaluate_move)
@@ -49,20 +58,25 @@ def main():
     orig_stdout = sys.stdout
     f = open('ga_history.txt', 'w')
     sys.stdout = f
+    print('stats')
     stats = tools.Statistics(lambda ind: ind.fitness.values)
     stats.register("avg", numpy.mean)
     stats.register("std", numpy.std)
     stats.register("min", numpy.min)
     stats.register("max", numpy.max)
     algorithms.eaSimple(pop, toolbox, 0.5, 0.2, 40, stats, halloffame=hof)
-
-
+    expr = gp.genFull(pset, min_=1, max_=3)
+    tree = gp.PrimitiveTree(expr)
+    print('Tree')
+    print(str(tree))
     # print 'Eligible moves: ', self.eligible_moves()
     #print('Pits: ', self.pits)
     #print('Board: ', self.board.textify_board())
     # print(pop, hof, stats)
     f.close()
     sys.stdout = orig_stdout
+    # function = gp.compile(hof, pset)
+    # print(function)
     print("done")
     # print(pop, hof, stats)
     return pop, hof, stats
