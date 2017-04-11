@@ -5,7 +5,7 @@ Katie Mulder, Ben Lafeldt, Mattie Phillips
 
 The base code of Mancala for this project comes from : https://github.com/anuzis/mancala.
 
-This project contains the code for data gathering, a ML bot and a GA bot.
+This project contains the code for data gathering, a ML bot and a GA bot. It also contains an analysis of the data collected.
 
 
 __Instructions:__
