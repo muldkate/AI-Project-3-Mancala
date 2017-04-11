@@ -21,7 +21,7 @@ def main():
     print ("Welcome to Mancala!")
 
     # (optional) dynamic player types
-    match = Match(player1_type=RandomAI, player2_type=LeftmostAI, param_print_game_status=True)
+    match = Match(player1_type=HumanPlayer, player2_type=LeftmostAI, param_print_game_status=True)
 
     match.handle_next_move()
    
