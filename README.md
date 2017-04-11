@@ -15,7 +15,9 @@ __Instructions:__
    * The data generated will be in the file 'default.txt'.
 * ML Bot
    * Be sure the appropriate libraries are installed: numpy, scipy, sklearn and python3
-   * run the command: *python3 ./mancala/play2.py*
+   * edit ./mancala/play.py and change player1 and player2 to desired players
+   * run the command: *python3 ./mancala/play.py*
  * GA Bot
    * Install libraries: deap, docopt, numpy, functools, random
    * run the command: *python3 ./mancala/ga_bot.py*
+- To initialize a batch run for statistics gathering, from this folder run the command: python3 ./mancala/batch.py (The data generated will be in the file 'default.txt' in this folder)
