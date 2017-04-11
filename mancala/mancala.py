@@ -13,7 +13,7 @@ import sys
 class Player(object):
     """ A player of Mancala. """
 
-    def __init__(self, match, number=None, board=None, name=DEFAULT_NAME, param_print_game_status=True):
+    def __init__(self, match=None, number=None, board=None, name=DEFAULT_NAME, param_print_game_status=True):
         self.name = name
         self.number = number
         self.board = board
@@ -53,9 +53,9 @@ class Match(object):
         self.player1_name = player1_type.__name__
         self.player2 = self.players[1]
         if training:
-            self.player2_name = player2_type.__name__
-        else:
             self.player2_name = "GA_Iteration"
+        else:
+            self.player2_name = player2_type.__name__
         self.current_turn = self.player1
         self.print_game_status = param_print_game_status
         # Variables for gathering statistics
@@ -167,7 +167,7 @@ class HumanPlayer(Player):
     """ A human player. """
 
     def __init__(self, match, number=None, board=None, name=DEFAULT_NAME, param_print_game_status=True):
-        super(HumanPlayer, self).__init__(number, board)
+        super(HumanPlayer, self).__init__(match, number, board)
         if name:
             self.name = name
         else:
