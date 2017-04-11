@@ -15,7 +15,7 @@ __Instructions:__
    * The data generated will be in the file 'default.txt'.
 * ML Bot
    * Be sure the appropriate libraries are installed: numpy, scipy, sklearn and python3
-   * edit ./mancala/play.py and change player1 and player2 to desired players
+   * edit ./mancala/play.py and change player1 and player2 to desired players [MLAI, VectorAI, RightmostAI, LeftmostAI, RandomAI]
    * run the command: *python3 ./mancala/play.py*
  * GA Bot
    * Install libraries: deap, docopt, numpy, functools, random
