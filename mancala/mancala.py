@@ -13,7 +13,7 @@ import sys
 class Player(object):
     """ A player of Mancala. """
 
-    def __init__(self, match, number=None, board=None, name=DEFAULT_NAME, param_print_game_status=True):
+    def __init__(self, number, match, board=None, name=DEFAULT_NAME, param_print_game_status=True):
         self.name = name
         self.number = number
         self.board = board
@@ -166,7 +166,7 @@ class Match(object):
 class HumanPlayer(Player):
     """ A human player. """
 
-    def __init__(self, match, number=None, board=None, name=DEFAULT_NAME, param_print_game_status=True):
+    def __init__(self, number, match, board=None, name=DEFAULT_NAME, param_print_game_status=True):
         super(HumanPlayer, self).__init__(number, board)
         if name:
             self.name = name
