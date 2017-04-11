@@ -3,7 +3,7 @@ __CIS 365 Project 3: Mancala Bots__
 Team Asimov's Laws
 Katie Mulder, Ben Lafeldt, Mattie Phillips
 
-The base code of Mancala for this project comes from : https://github.com/anuzis/mancala.
+The base code of Mancala for this project comes from: https://github.com/anuzis/mancala.
 
 This project contains the code for data gathering, a ML bot and a GA bot. It also contains an analysis of the data collected.
 
@@ -15,6 +15,6 @@ __Instructions:__
    * The data generated will be in the file 'default.txt'.
 * ML Bot
    * Be sure the appropriate libraries are installed: numpy, scipy, sklearn and python3
-   * run the command python3 ./mancala/play2.py
+   * run the command: *python3 ./mancala/play2.py*
  
 * GA Bot
