@@ -18,10 +18,10 @@ class AIPlayer(Player):
 
     random.seed(a=0)
 
-    def __init__(self, number, board, name=AI_NAME, param_print_game_status=True):
+    def __init__(self, number, match, board, name=AI_NAME, param_print_game_status=False):
         """ Initializes an AI profile."""
         self.print_game_status = param_print_game_status
-        super(AIPlayer, self).__init__(number, board, name)
+        super(AIPlayer, self).__init__(match, number, board, name)
 
     @property
     def pits(self):

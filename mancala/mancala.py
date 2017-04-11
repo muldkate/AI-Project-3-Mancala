@@ -13,10 +13,11 @@ import sys
 class Player(object):
     """ A player of Mancala. """
 
-    def __init__(self, number=None, board=None, name=DEFAULT_NAME, param_print_game_status=True):
+    def __init__(self, match, number=None, board=None, name=DEFAULT_NAME, param_print_game_status=True):
         self.name = name
         self.number = number
         self.board = board
+        self.match = match
 
     def __str__(self):
         return "Player: %s" % self.name
@@ -42,12 +43,12 @@ class Match(object):
         """ Initializes a new match. """
         self.board = Board(param_print_game_status=param_print_game_status)
         if training:
-            self.players = [player1_type(1, self.board, self, player1_type.__name__), training]
+            self.players = [player1_type(1, self, self.board, player1_type.__name__), training]
             training.number = 2
             training.board = self.board
             training.match = self
         else:
-            self.players = [player1_type(1, self.board, self, player1_type.__name__, param_print_game_status=param_print_game_status), player2_type(2, self.board, self, player2_type.__name__, param_print_game_status=param_print_game_status)]
+            self.players = [player1_type(1, self, self.board, player1_type.__name__, param_print_game_status=param_print_game_status), player2_type(2, self, self.board, player2_type.__name__, param_print_game_status=param_print_game_status)]
         self.player1 = self.players[0]
         self.player1_name = player1_type.__name__
         self.player2 = self.players[1]
