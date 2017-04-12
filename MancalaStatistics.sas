@@ -197,7 +197,7 @@ proc sgplot data=leftmostvrandomfreq2;
 	vbar Winner / response=percent_prop datalabel dataskin=pressed;
 	format percent_prop PERCENT10.2;
 	label  Winner ='Game Winner' percent_prop='Percentage of Games';
-	title 'RandomAI vs VectorAI - Win Loss Comparison';
+	title 'LeftmostAI vs RandomAI - Win Loss Comparison';
 run;
 
 /* LeftmostAI vs VectorAI */
@@ -489,9 +489,18 @@ data work.winslossesfreq;
 	pct_row_prop = pct_row / 100;
 run;
 
-proc sgpanel data=work.winslossesfreq;
-	panelby PlayerName / rows=1;
-	vbar WinLoss / response=pct_row_prop datalabel dataskin=pressed ;
+data attrmap;
+   input id $ value $ fillcolor $ ;
+   datalines;
+WinLoss Win Green    
+WinLoss Loss Red 
+WinLoss Tie Blue     
+;
+run;
+
+proc sgpanel data=work.winslossesfreq dattrmap=attrmap;
+	panelby PlayerName / columns=4 rows=1 NOVARNAME;
+	vbar WinLoss / response=pct_row_prop datalabel dataskin=pressed attrid=WinLoss;
 	format WinLoss winlosstie. pct_row_prop PERCENTN10.1;
 	label pct_row_prop='Percentage' WinLoss='Game Outcomes' PlayerName='Player Name';
 	title 'Overall - Wins vs Losses vs Ties';
