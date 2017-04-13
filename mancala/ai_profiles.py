@@ -5,6 +5,8 @@ from sklearn.externals import joblib
 from sklearn import svm
 import time
 import random
+import numpy as np
+import warnings
 
 try:
     from .mancala import Player, reverse_index
@@ -128,6 +130,7 @@ class MLAI(AIPlayer):
     """ Machine Learning bot """
     def get_next_move(self):
         clf = joblib.load('model.pkl')
+        warnings.filterwarnings("ignore")
         move = clf.predict(self.allpits)
         print("Move is " + str(move[0]))
         if self.print_game_status:

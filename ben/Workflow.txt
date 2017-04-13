@@ -1,0 +1,14 @@
+1. Collect data
+	-Refactored code for clean output: only moves and board
+	-Script to play game with good ai (Vector) and random
+	-Ran/Collected data on 10,000 games
+	-Seperated data into board status and moves
+2. Fit data
+	-Used SK-Learn
+	-Basic SVC
+	-Found the default parameters to create the best model
+3. Test Bot
+	-Ran bot against other AIs
+	-Beat other bots except for Vector
+4. Play
+	run from /ben bash rungame
